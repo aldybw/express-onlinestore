@@ -3,10 +3,8 @@ version: '3.9'
 
 # The containers that compose the project
 services:
-  db:
+  dev-db:
     image: postgres:14
-    restart: always
-    container_name: development-onlinestore
     ports:
       - '5433:5432'
     environment:
