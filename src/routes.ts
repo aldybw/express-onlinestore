@@ -1,18 +1,27 @@
 import { Express, Request, Response } from "express";
 import {
   createUserHandler,
-  getUserHandler,
   getUserHandlerById,
+  getUsersHandler,
+  loginUserHandler,
 } from "./controllers/user.controller";
 import { validate } from "./middlewares/validateRequest";
-import { bodyUserSchema } from "./schemas/user.schema";
+import {
+  loginBodyUserSchema,
+  registerBodyUserSchema,
+} from "./schemas/user.schema";
 
 function routes(app: Express) {
   app.get("/healthcheck", (req: Request, res: Response) => res.send("hello"));
 
-  app.get("/api/users", getUserHandler);
+  app.get("/api/users", getUsersHandler);
   app.get("/api/users/:id", getUserHandlerById);
-  app.post("/api/users/", validate(bodyUserSchema), createUserHandler);
+  app.post(
+    "/api/users/register",
+    validate(registerBodyUserSchema),
+    createUserHandler
+  );
+  app.post("/api/users/login", validate(loginBodyUserSchema), loginUserHandler);
 }
 
 export default routes;

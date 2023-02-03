@@ -1,6 +1,6 @@
 import { db } from "../utils/connect";
 
-export async function findUser() {
+export async function findUsers() {
   return await db.user.findMany();
 }
 
@@ -23,17 +23,17 @@ export async function findUserByEmail(email: string) {
 export async function createUser({
   name,
   email,
-  password,
+  securePassword,
 }: {
   name: string;
   email: string;
-  password: string;
+  securePassword: string;
 }) {
   return await db.user.create({
     data: {
       name,
       email,
-      hashedPassword: password,
+      hashedPassword: securePassword,
     },
   });
 }

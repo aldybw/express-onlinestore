@@ -1,6 +1,6 @@
 import { z, ZodType } from "zod";
 
-export const bodyUserSchema = z.object({
+export const registerBodyUserSchema = z.object({
   body: z
     .object({
       name: z.string(),
@@ -20,4 +20,12 @@ export const bodyUserSchema = z.object({
     }),
 });
 
-export type bodyUserSchema = z.infer<typeof bodyUserSchema>;
+export const loginBodyUserSchema = z.object({
+  body: z.object({
+    email: z.string().email(),
+    password: z.string().min(4, "Password should have minimum 4 characters"),
+  }),
+});
+
+export type registerBodyUserSchema = z.infer<typeof registerBodyUserSchema>;
+export type loginBodyUserSchema = z.infer<typeof loginBodyUserSchema>;
